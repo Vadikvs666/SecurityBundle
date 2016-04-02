@@ -4,6 +4,6 @@
     "type": "symfony-bundle",
        "autoload": {
     "psr-0": { "VVS\\SecurityBundle": "" }
-},
-    "target-dir": "VVS/SecurityBundle"
+}
+    
 }
