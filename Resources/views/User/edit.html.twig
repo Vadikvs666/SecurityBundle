@@ -1,0 +1,16 @@
+{% extends '@VVSSecurityBundle:base.html.twig' %}
+{% block page_title  %}Изменить {% endblock  %}
+{% block body -%}
+
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('user') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
