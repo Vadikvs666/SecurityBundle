@@ -1,9 +1,9 @@
 <?php
 
-namespace Vadim\indexBundle;
+namespace VVS\SecurityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class VadimindexBundle extends Bundle
+class VVSSecurityBundle extends Bundle
 {
 }
