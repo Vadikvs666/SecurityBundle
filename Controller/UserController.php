@@ -1,13 +1,12 @@
 <?php
 
-namespace Vadim\indexBundle\Controller;
+namespace VVS\SecurityBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Vadim\indexBundle\Entity\User;
-
-use Vadim\indexBundle\Form\UserType;
+use VVS\SecurityBundle\Entity\User;
+use VVS\SecurityBundle\Form\UserType;
 
 /**
  * User controller.
@@ -15,94 +14,42 @@ use Vadim\indexBundle\Form\UserType;
  */
 class UserController extends Controller
 {
-
     /**
      * Lists all User entities.
      *
      */
-    
-    public  $template="sb-admin";
     public function indexAction()
     {
-        $template="sb-admin";
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('VadimindexBundle:User')->findAll();
+        $users = $em->getRepository('VVSSecurityBundle:User')->findAll();
 
-        return $this->render('VadimindexBundle:User:index.html.twig', array(
-            'entities' => $entities,
-            'template' => $template,
-            'page_title'=> 'Пользователи',
-            "our_firm_title"=>"ИП Вагин Сергей Александрович"
+        return $this->render('user/index.html.twig', array(
+            'users' => $users,
         ));
     }
+
     /**
      * Creates a new User entity.
      *
      */
-    public function createAction(Request $request)
+    public function newAction(Request $request)
     {
-        $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $user = new User();
+        $form = $this->createForm('VVS\SecurityBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            $pwd=$entity->getPassword();
-            $encoder=$this->container->get('security.password_encoder');
-            $pwd=$encoder->encodePassword($entity, $pwd);
-            $entity->setPassword($pwd);
-
-            $em->persist($entity);
+            $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            return $this->redirectToRoute('vvs-admin_show', array('id' => $user->getId()));
         }
 
-        return $this->render('VadimindexBundle:User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-            'template' => $this->template,
-            'page_title'=> 'Создать пользователя',
-            "our_firm_title"=>"ИП Вагин Сергей Александрович"
-        ));
-    }
-
-    /**
-     * Creates a form to create a User entity.
-     *
-     * @param User $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(User $entity)
-    {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_create'),
-            'method' => 'POST',
-        ));
-
-        //$form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new User entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new User();
-        $form   = $this->createCreateForm($entity);
-        
-        return $this->render('VadimindexBundle:User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-            'template' => $this->template,
-            'page_title'=> 'Создать пользователя',
-            "our_firm_title"=>"ИП Вагин Сергей Александрович"
+        return $this->render('user/new.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
         ));
     }
 
@@ -110,20 +57,12 @@ class UserController extends Controller
      * Finds and displays a User entity.
      *
      */
-    public function showAction($id)
+    public function showAction(User $user)
     {
-        $em = $this->getDoctrine()->getManager();
+        $deleteForm = $this->createDeleteForm($user);
 
-        $entity = $em->getRepository('VadimindexBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('VadimindexBundle:User:show.html.twig', array(
-            'entity'      => $entity,
+        return $this->render('user/show.html.twig', array(
+            'user' => $user,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -132,117 +71,57 @@ class UserController extends Controller
      * Displays a form to edit an existing User entity.
      *
      */
-    public function editAction($id)
+    public function editAction(Request $request, User $user)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('VadimindexBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('VadimindexBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-    * Creates a form to edit a User entity.
-    *
-    * @param User $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(User $entity)
-    {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing User entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('VadimindexBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($user);
+        $editForm = $this->createForm('VVS\SecurityBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-
-            $pwd=$entity->getPassword();
-            $encoder=$this->container->get('security.password_encoder');
-            $pwd=$encoder->encodePassword($entity, $pwd);
-            $entity->setPassword($pwd);
-            
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            return $this->redirectToRoute('vvs-admin_edit', array('id' => $user->getId()));
         }
 
-        return $this->render('VadimindexBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('user/edit.html.twig', array(
+            'user' => $user,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a User entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, User $user)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('VadimindexBundle:User')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find User entity.');
-            }
-
-            $em->remove($entity);
+            $em->remove($user);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('user'));
+        return $this->redirectToRoute('vvs-admin_index');
     }
 
     /**
-     * Creates a form to delete a User entity by id.
+     * Creates a form to delete a User entity.
      *
-     * @param mixed $id The entity id
+     * @param User $user The User entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('vvs-admin_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

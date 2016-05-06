@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * @ORM\Table(name="vvs_users")
- * @ORM\Entity(repositoryClass="VVSSecurityBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="VVS\SecurityBundle\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable 
 {

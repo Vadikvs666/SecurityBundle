@@ -5,50 +5,54 @@ use Symfony\Component\Routing\Route;
 
 $collection = new RouteCollection();
 
-$collection->add('user', new Route('/', array(
-    '_controller' => 'VVSSecurityBundle:User:index',
-)));
-
-$collection->add('user_show', new Route('/{id}/show', array(
-    '_controller' => 'VVSSecurityBundle:User:show',
-)));
-
-$collection->add('user_new', new Route('/new', array(
-    '_controller' => 'VVSSecurityBundle:User:new',
-)));
-
-$collection->add('user_create', new Route(
-    '/create',
-    array('_controller' => 'VVSSecurityBundle:User:create'),
+$collection->add('vvs-admin_index', new Route(
+    '/',
+    array('_controller' => 'VVSSecurityBundle:User:index'),
     array(),
     array(),
     '',
     array(),
-    'POST'
+    array('GET')
 ));
 
-$collection->add('user_edit', new Route('/{id}/edit', array(
-    '_controller' => 'VVSSecurityBundle:User:edit',
-)));
-
-$collection->add('user_update', new Route(
-    '/{id}/update',
-    array('_controller' => 'VVSSecurityBundle:User:update'),
+$collection->add('vvs-admin_show', new Route(
+    '/{id}/show',
+    array('_controller' => 'VVSSecurityBundle:User:show'),
     array(),
     array(),
     '',
     array(),
-    array('POST', 'PUT')
+    array('GET')
 ));
 
-$collection->add('user_delete', new Route(
+$collection->add('vvs-admin_new', new Route(
+    '/new',
+    array('_controller' => 'VVSSecurityBundle:User:new'),
+    array(),
+    array(),
+    '',
+    array(),
+    array('GET', 'POST')
+));
+
+$collection->add('vvs-admin_edit', new Route(
+    '/{id}/edit',
+    array('_controller' => 'VVSSecurityBundle:User:edit'),
+    array(),
+    array(),
+    '',
+    array(),
+    array('GET', 'POST')
+));
+
+$collection->add('vvs-admin_delete', new Route(
     '/{id}/delete',
     array('_controller' => 'VVSSecurityBundle:User:delete'),
     array(),
     array(),
     '',
     array(),
-    array('POST', 'DELETE')
+    array('DELETE')
 ));
 
 return $collection;
