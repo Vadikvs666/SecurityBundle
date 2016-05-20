@@ -24,7 +24,7 @@ class UserController extends Controller
 
         $users = $em->getRepository('VVSSecurityBundle:User')->findAll();
 
-        return $this->render('user/index.html.twig', array(
+        return $this->render('VVSSecurityBundle:User:index.html.twig', array(
             'users' => $users,
         ));
     }
@@ -47,7 +47,7 @@ class UserController extends Controller
             return $this->redirectToRoute('vvs-admin_show', array('id' => $user->getId()));
         }
 
-        return $this->render('user/new.html.twig', array(
+        return $this->render('VVSSecurityBundle:User:new.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
         ));
@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $deleteForm = $this->createDeleteForm($user);
 
-        return $this->render('user/show.html.twig', array(
+        return $this->render('VVSSecurityBundle:User:show.html.twig', array(
             'user' => $user,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -82,10 +82,10 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('vvs-admin_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
-        return $this->render('user/edit.html.twig', array(
+        return $this->render('VVSSecurityBundle:User:edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -107,7 +107,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('vvs-admin_index');
+        return $this->redirectToRoute('user_index');
     }
 
     /**
@@ -120,7 +120,7 @@ class UserController extends Controller
     private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('vvs-admin_delete', array('id' => $user->getId())))
+            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

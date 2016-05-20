@@ -20,21 +20,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for entity in entities %}
+                                {% for user in users %}
                                     <tr>
                                       
-                                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</td>
-                                        <td>{{ entity.password }}</td>
-                                        <td>{{ entity.email }}</td>
-                                        <td>{{ entity.isActive }}</td>
-                                        <td>{{ entity.isAdmin }}</td>
+                                        <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</td>
+                                        <td>{{ user.password }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.isActive }}</td>
+                                        <td>{{ user.isAdmin }}</td>
                                         <td>
                                             <ul>
                                                 <li>
-                                                    <a href="{{ path('user_show', { 'id': entity.id }) }}">Открыть</a>
+                                                    <a href="{{ path('user_show', { 'id': user.id }) }}">Открыть</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ path('user_edit', { 'id': entity.id }) }}">Изменить</a>
+                                                    <a href="{{ path('user_edit', { 'id': user.id }) }}">Изменить</a>
                                                 </li>
                                             </ul>
                                         </td>

@@ -1,4 +1,5 @@
-{% extends 'VVSSecurityBundle:base.html.twig' %}
+{% extends 'VVSSecurityBundle::base.html.twig' %}
+{% block page_title  %}Создать пользователя {% endblock  %}
 {% block body %}
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -21,6 +22,8 @@
                             <label>
                                 {{ form_widget(form.isActive ) }}
                                 Активный </label>
+<br>
+			    {{ form_widget(form.role,{'attr': {'class': 'form-control', 'placeholder':'Тип учетной записи'}} ) }}<br>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Создать</button>
                         {{ form_end(form) }}
                     </div>
@@ -35,7 +38,7 @@
     </div>
     <ul class="record_actions">
         <li>
-            <a class="btn btn-default" href="{{ path('user') }}">
+            <a class="btn btn-default" href="{{ path('user_index') }}">
                 Назад к списку пользователей
             </a>
         </li>

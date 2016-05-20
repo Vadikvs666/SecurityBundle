@@ -5,7 +5,7 @@ use Symfony\Component\Routing\Route;
 
 $collection = new RouteCollection();
 
-$collection->add('vvs-admin_index', new Route(
+$collection->add('user_index', new Route(
     '/',
     array('_controller' => 'VVSSecurityBundle:User:index'),
     array(),
@@ -15,7 +15,7 @@ $collection->add('vvs-admin_index', new Route(
     array('GET')
 ));
 
-$collection->add('vvs-admin_show', new Route(
+$collection->add('user_show', new Route(
     '/{id}/show',
     array('_controller' => 'VVSSecurityBundle:User:show'),
     array(),
@@ -25,7 +25,7 @@ $collection->add('vvs-admin_show', new Route(
     array('GET')
 ));
 
-$collection->add('vvs-admin_new', new Route(
+$collection->add('user_new', new Route(
     '/new',
     array('_controller' => 'VVSSecurityBundle:User:new'),
     array(),
@@ -35,7 +35,7 @@ $collection->add('vvs-admin_new', new Route(
     array('GET', 'POST')
 ));
 
-$collection->add('vvs-admin_edit', new Route(
+$collection->add('user_edit', new Route(
     '/{id}/edit',
     array('_controller' => 'VVSSecurityBundle:User:edit'),
     array(),
@@ -45,7 +45,7 @@ $collection->add('vvs-admin_edit', new Route(
     array('GET', 'POST')
 ));
 
-$collection->add('vvs-admin_delete', new Route(
+$collection->add('user_delete', new Route(
     '/{id}/delete',
     array('_controller' => 'VVSSecurityBundle:User:delete'),
     array(),

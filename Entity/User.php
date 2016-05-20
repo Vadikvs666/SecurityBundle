@@ -219,4 +219,28 @@ class User implements UserInterface, \Serializable
     {
         return $this->isAdmin;
     }
+
+    /**
+     * Set role
+     *
+     * @param integer $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return integer
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
 }
