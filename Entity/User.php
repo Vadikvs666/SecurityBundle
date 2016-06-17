@@ -23,7 +23,7 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=1024)
      */
     private $password;
 
@@ -73,11 +73,8 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        if($this->getIsAdmin()==1)
-        {
-            return array('ROLE_ADMIN');
-        }
-        else return array('ROLE_USER');
+        
+        return array($this->role->getRole());
     }
 
     public function eraseCredentials()

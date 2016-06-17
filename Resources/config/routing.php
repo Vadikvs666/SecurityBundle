@@ -5,11 +5,11 @@ use Symfony\Component\Routing\Route;
 
 $collection = new RouteCollection();
 
-$collection->add('login_route', new Route('/login', array(
+$collection->add('login', new Route('/login', array(
     '_controller' => 'VVSSecurityBundle:Security:login',
 )));
 
-$collection->add('login_check', new Route('/login_check'));
+//$collection->add('login', new Route('/login'));
 $collection->add('logout', new Route('/logout'));
 
 
