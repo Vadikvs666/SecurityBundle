@@ -1,0 +1,4 @@
+vvs_security_vvs-admin:
+    resource: "@VVSSecurityBundle/Resources/config/routing/user.php"
+    prefix:   /vvs-admin
+
