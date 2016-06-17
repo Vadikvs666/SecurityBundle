@@ -41,10 +41,14 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $pwd=$user->getPassword();
+            $encoder=$this->container->get('security.password_encoder');
+            $pwd=$encoder->encodePassword($user, $pwd);
+            $user->setPassword($pwd);
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('vvs-admin_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
         return $this->render('VVSSecurityBundle:User:new.html.twig', array(
@@ -79,6 +83,10 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $pwd=$user->getPassword();
+            $encoder=$this->container->get('security.password_encoder');
+            $pwd=$encoder->encodePassword($user, $pwd);
+            $user->setPassword($pwd);
             $em->persist($user);
             $em->flush();
 

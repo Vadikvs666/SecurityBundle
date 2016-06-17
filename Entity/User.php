@@ -37,16 +37,14 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
-    /**
-     * @ORM\Column(name="is_admin", type="boolean"  )
-     */
-    private $isAdmin;
+  
+    
     
     /**
-     * 
-     * @ORM\Column(name="role", type="integer")
+     * @var role
+     * @ORM\ManyToOne(targetEntity="VVS\SecurityBundle\Entity\Role")
+     * @ORM\JoinColumn(name="role", referencedColumnName="id")
      */
-    
     private $role;
 
     public function __construct()
@@ -143,6 +141,7 @@ class User implements UserInterface, \Serializable
      */
     public function setPassword($password)
     {
+  
         $this->password = $password;
 
         return $this;
@@ -196,29 +195,7 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
 
-    /**
-     * Set isAdmin
-     *
-     * @param boolean $isAdmin
-     *
-     * @return User
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
-    /**
-     * Get isAdmin
-     *
-     * @return boolean
-     */
-    public function getIsAdmin()
-    {
-        return $this->isAdmin;
-    }
+    
 
     /**
      * Set role

@@ -19,7 +19,6 @@ class UserType extends AbstractType
             ->add('password')
             ->add('email')
             ->add('isActive')
-            ->add('isAdmin')
             ->add('role')
         ;
     }

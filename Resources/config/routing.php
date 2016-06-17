@@ -22,5 +22,9 @@ $user=$loader->import("@VVSSecurityBundle/Resources/config/routing/user.php");
 $user->addPrefix('vvs-admin/user');
 $collection->addCollection($user);
 
+$user=$loader->import("@VVSSecurityBundle/Resources/config/routing/role.php");
+$user->addPrefix('vvs-admin/role');
+$collection->addCollection($user);
+
 
 return $collection;

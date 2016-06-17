@@ -16,14 +16,13 @@
 
 
                             {{ form_widget(form.email,{'attr': {'class': 'form-control', 'placeholder':'E-mail'}} ) }}<br>
-                            <label>
-                                {{ form_widget(form.isAdmin ) }}
-                                Администратор </label><br>
+
+                            
+			    {{ form_widget(form.role,{'attr': {'class': 'form-control', 'placeholder':'Тип учетной записи'}} ) }}<br>
                             <label>
                                 {{ form_widget(form.isActive ) }}
-                                Активный </label>
-<br>
-			    {{ form_widget(form.role,{'attr': {'class': 'form-control', 'placeholder':'Тип учетной записи'}} ) }}<br>
+                                Активная </label>
+                                    <br>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Создать</button>
                         {{ form_end(form) }}
                     </div>

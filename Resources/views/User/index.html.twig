@@ -12,10 +12,9 @@
                             <thead>
                                 <tr>
                                     <th>Имя</th>
-                                    <th>Пароль</th>
                                     <th>E-mail</th>
                                     <th>Активный</th>
-                                    <th>Админ</th>
+                                    <th>Роль</th>
                                     <th>Действия</th>
                                 </tr>
                             </thead>
@@ -24,10 +23,9 @@
                                     <tr>
                                       
                                         <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</td>
-                                        <td>{{ user.password }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.isActive }}</td>
-                                        <td>{{ user.isAdmin }}</td>
+                                        <td>{{ user.role }}</td>
                                         <td>
                                             <ul>
                                                 <li>
