@@ -36,7 +36,8 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm('VVS\SecurityBundle\Form\UserType', $user);
+        $form =new UserType();
+        $form = $this->createForm($form, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +79,8 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('VVS\SecurityBundle\Form\UserType', $user);
+        $form =new UserType();
+        $editForm = $this->createForm($form, $user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -4,7 +4,7 @@ namespace VVS\SecurityBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserType extends AbstractType
 {
@@ -24,12 +24,20 @@ class UserType extends AbstractType
     }
     
     /**
-     * @param OptionsResolver $resolver
+     * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'VVS\SecurityBundle\Entity\User'
         ));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'vvs_securitybundle_user';
     }
 }
