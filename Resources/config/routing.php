@@ -15,7 +15,7 @@ $collection->add('logout', new Route('/logout'));
 
 
 
-/*добавление роутинга к администрированию пользоывателей*/
+/*добавление роутинга к администрированию пользователей и ролей*/
 
 $user=$loader->import("@VVSSecurityBundle/Resources/config/routing/user.php");
 $user->addPrefix('admin/user');
